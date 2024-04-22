@@ -10,6 +10,6 @@ test('create an answer', () => {
         content: 'Nova Resposta'
     })
 
-    expect(answer.content).toEqual('Nova Resposta')
+    expect(answer.content).toEqual('Nova Resposta');
 
-})
+});
