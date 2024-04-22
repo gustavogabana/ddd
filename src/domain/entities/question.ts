@@ -7,7 +7,16 @@ interface QuestionProps {
 }
 
 export class Question {
-    constructor(public questionProps: QuestionProps, public id?: string) {
-        id = id ?? randomUUID();
+    
+    public title: string;
+    public content: string;
+    public authorId: string;
+    public id?: string;
+
+    constructor(questionProps: QuestionProps, id?: string) {
+        this.title = questionProps.title;
+        this.content = questionProps.content;
+        this.authorId = questionProps.authorId;
+        this.id = id ?? randomUUID();
     }
 }

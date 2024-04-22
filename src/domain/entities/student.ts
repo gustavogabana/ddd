@@ -5,7 +5,12 @@ interface StudentProps {
 }
 
 export class Student {
-    constructor(public studentProps: StudentProps, public id?: string) {
-        id = id ?? randomUUID();
+    
+    public name: string;
+    public id?: string;
+
+    constructor(studentProps: StudentProps, id?: string) {
+        this.name = studentProps.name;
+        this.id = id ?? randomUUID();
     }
 }
