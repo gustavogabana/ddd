@@ -1,26 +1,29 @@
-import { Question } from "@/domain/forum/enterprise/entities/question"
-import { QuestionsRepository } from "../../repositories/questions-repository"
 import { CreateQuestionUseCase } from "../create-questions";
 import { UniqueEntityId } from "@/core/entities/unique-entity-id";
+import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questions-repository";
 
-const fakeQuestionRepository: QuestionsRepository = {
-    create: async (question: Question) => {
-        return;
-    }
-}
-
-test('create a question', async () => {
-    const createQuestion = new CreateQuestionUseCase(fakeQuestionRepository);
-    const { question } = await createQuestion.execute({
-        authorId: '1',
-        title: 'testing',
-        content: 'ipsum lorem test text'
+let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
+let sut: CreateQuestionUseCase;
+// sut -> system under test
+describe('Create Question', () => {
+    beforeEach(() => {
+        inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
+        sut = new CreateQuestionUseCase(inMemoryQuestionsRepository);
     });
 
-    expect(question.id).toBeTruthy();
-    expect(question.id).toBeInstanceOf(UniqueEntityId);
-    expect(question.title).toEqual('testing');
-    expect(question.content).toEqual('ipsum lorem test text');
-    expect(question.slug).toBeTruthy();
-    expect(question.createdAt).toBeInstanceOf(Date);
-})
+    it('should be able to create a question', async () => {
+        const { question } = await sut.execute({
+            authorId: '1',
+            title: 'testing',
+            content: 'ipsum lorem test text'
+        });
+    
+        expect(question.id).toBeTruthy();
+        expect(question.id).toBeInstanceOf(UniqueEntityId);
+        expect(question.title).toEqual('testing');
+        expect(question.content).toEqual('ipsum lorem test text');
+        expect(question.slug).toBeTruthy();
+        expect(question.createdAt).toBeInstanceOf(Date);
+        expect(inMemoryQuestionsRepository.items[0].id).toEqual(question.id);
+    });
+});
