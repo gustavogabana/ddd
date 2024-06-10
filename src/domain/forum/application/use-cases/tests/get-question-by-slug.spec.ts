@@ -1,8 +1,5 @@
-import { CreateQuestionUseCase } from "../create-questions";
-import { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questions-repository";
 import { GetQuestionBySlugUseCase } from "../get-question-by-slug";
-import { Question } from "@/domain/forum/enterprise/entities/question";
 import { Slug } from "@/domain/forum/enterprise/entities/value-objects/slug";
 import { makeQuestion } from "test/factories/make-question";
 
